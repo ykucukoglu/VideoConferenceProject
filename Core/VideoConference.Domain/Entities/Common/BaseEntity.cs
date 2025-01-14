@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VideoConference.Domain.Entities.Common
 {
-    public class EntityBase : IEntityBase
+    public class BaseEntity : IBaseEntity
     {
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;

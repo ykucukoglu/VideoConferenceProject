@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VideoConference.Application.Interfaces.Repositories;
+using VideoConference.Application.Repositories;
 using VideoConference.Domain.Entities.Common;
 
 namespace VideoConference.Persistence.Repositories
 {
-    public class WriteRepository<T> : IWriteRepository<T> where T : class, IEntityBase, new()
+    public class WriteRepository<T> : IWriteRepository<T> where T : class, IBaseEntity, new()
     {
         private readonly DbContext dbContext;
 

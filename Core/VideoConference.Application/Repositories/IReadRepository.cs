@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using VideoConference.Domain.Entities.Common;
 
-namespace VideoConference.Application.Interfaces.Repositories
+namespace VideoConference.Application.Repositories
 {
-    public interface IReadRepository<T> where T : class, IEntityBase, new()
+    public interface IReadRepository<T> where T : class, IBaseEntity, new()
     {
         Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,

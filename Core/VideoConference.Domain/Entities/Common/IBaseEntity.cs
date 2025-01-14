@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VideoConference.Domain.Entities.Common
 {
-    public interface IEntityBase
+    public interface IBaseEntity
     {
     }
 }

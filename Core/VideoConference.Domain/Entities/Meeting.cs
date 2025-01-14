@@ -7,7 +7,7 @@ using VideoConference.Domain.Entities.Common;
 
 namespace VideoConference.Domain.Entities
 {
-    public class Meeting : EntityBase
+    public class Meeting : BaseEntity
     {
         public string Title { get; set; }
         public string Description { get; set; }

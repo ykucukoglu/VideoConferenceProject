@@ -7,7 +7,7 @@ using VideoConference.Domain.Entities.Common;
 
 namespace VideoConference.Domain.Entities
 {
-    public class MeetingSetting : EntityBase
+    public class MeetingSetting : BaseEntity
     {
         public Guid Id { get; set; }
         public bool AllowRecording { get; set; }

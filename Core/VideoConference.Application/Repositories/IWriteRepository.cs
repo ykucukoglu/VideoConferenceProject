@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using VideoConference.Domain.Entities.Common;
 
-namespace VideoConference.Application.Interfaces.Repositories
+namespace VideoConference.Application.Repositories
 {
-    public interface IWriteRepository<T> where T : class, IEntityBase, new()
+    public interface IWriteRepository<T> where T : class, IBaseEntity, new()
     {
         Task AddAsync(T entity);
         Task AddRangeAsync(IList<T> entities);
