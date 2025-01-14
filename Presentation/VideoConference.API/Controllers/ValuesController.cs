@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VideoConference.Application.DTOs.Meetings;
+using VideoConference.Application.Features.Queries.Meeting.GetAllMeeting;
 using VideoConference.Application.Repositories.UnitOfWorks;
 using VideoConference.Domain.Entities;
 
@@ -11,20 +14,18 @@ namespace VideoConference.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public ValuesController(IUnitOfWork unitOfWork, IMapper mapper)
+        readonly IMediator _mediator;
+
+        public ValuesController(IMediator mediator)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _mediator = mediator;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var meets = await _unitOfWork.GetReadRepository<Meeting>().GetAllAsync();
-            var mapping = _mapper.Map<List<MeetingDTO>>(meets);
-
-            return Ok(mapping);
+            var response = await _mediator.Send(new GetAllMeetingQueryRequest());
+            return Ok(response);
         }
     }
 }

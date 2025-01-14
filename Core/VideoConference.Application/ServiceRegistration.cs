@@ -12,8 +12,8 @@ namespace VideoConference.Application
     {
         public static void AddApplicationServices(this IServiceCollection services)
         {
-            //collection.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-            //collection.AddHttpClient();
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            services.AddHttpClient();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
         }

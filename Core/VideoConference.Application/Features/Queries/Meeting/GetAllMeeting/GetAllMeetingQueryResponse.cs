@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using VideoConference.Application.DTOs.Meetings;
 
-namespace VideoConference.Application.Abstractions.Services
+namespace VideoConference.Application.Features.Queries.Meeting.GetAllMeeting
 {
-    public interface IMeetingService
+    public class GetAllMeetingQueryResponse
     {
-        Task<List<MeetingDTO>> GetAllMeetingsAsync();
+        public List<MeetingDTO> Meetings { get; set; }
     }
 }

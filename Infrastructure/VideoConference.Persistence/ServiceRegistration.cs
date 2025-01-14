@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VideoConference.Application.Abstractions.Services;
 using VideoConference.Application.Repositories;
 using VideoConference.Application.Repositories.UnitOfWorks;
 using VideoConference.Persistence.Contexts;
 using VideoConference.Persistence.Repositories;
+using VideoConference.Persistence.Services;
 using VideoConference.Persistence.UnitOfWorks;
 
 namespace VideoConference.Persistence
@@ -24,6 +26,7 @@ namespace VideoConference.Persistence
             services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IMeetingService, MeetingService>();
         }
     }
 }
