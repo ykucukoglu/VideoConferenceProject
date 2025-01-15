@@ -10,5 +10,6 @@ namespace VideoConference.Application.Abstractions.Services
     public interface IMeetingService
     {
         Task<List<MeetingDTO>> GetAllMeetingsAsync();
+        public Task DeleteMeetingAsync(Guid meetingId);
     }
 }

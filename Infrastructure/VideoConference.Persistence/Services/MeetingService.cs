@@ -8,6 +8,7 @@ using VideoConference.Application.Abstractions.Services;
 using VideoConference.Application.DTOs.Meetings;
 using VideoConference.Application.Repositories.UnitOfWorks;
 using VideoConference.Domain.Entities;
+using VideoConference.Persistence.UnitOfWorks;
 
 namespace VideoConference.Persistence.Services
 {
@@ -20,6 +21,18 @@ namespace VideoConference.Persistence.Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+        public async Task DeleteMeetingAsync(Guid meetingId)
+        {
+            var meeting = await _unitOfWork.GetReadRepository<Meeting>().GetAsync(x => x.Id == meetingId && !x.IsDeleted);
+            if(meeting != null)
+            {
+                meeting.IsDeleted = true;
+
+                await _unitOfWork.GetWriteRepository<Meeting>().UpdateAsync(meeting);
+                await _unitOfWork.SaveAsync();
+            }
         }
 
         public async Task<List<MeetingDTO>> GetAllMeetingsAsync()
