@@ -1,4 +1,5 @@
 using VideoConference.Application;
+using VideoConference.Application.Exceptions;
 using VideoConference.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +43,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
+
+app.ConfigureExceptionHandlingMiddleware();
 
 app.UseAuthorization();
 

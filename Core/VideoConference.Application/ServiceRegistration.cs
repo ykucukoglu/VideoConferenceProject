@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using VideoConference.Application.Exceptions;
 
 namespace VideoConference.Application
 {
@@ -16,6 +17,8 @@ namespace VideoConference.Application
             services.AddHttpClient();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.AddTransient<ExceptionMiddleware>();
         }
     }
 }
