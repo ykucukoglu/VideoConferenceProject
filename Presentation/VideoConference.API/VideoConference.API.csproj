@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\VideoConference.Application\VideoConference.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\VideoConference.Infrastructure\VideoConference.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\VideoConference.Persistence\VideoConference.Persistence.csproj" />
   </ItemGroup>
 

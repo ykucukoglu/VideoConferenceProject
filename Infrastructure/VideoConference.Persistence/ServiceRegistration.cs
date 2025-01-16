@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using VideoConference.Application.Abstractions.Services;
 using VideoConference.Application.Repositories;
 using VideoConference.Application.Repositories.UnitOfWorks;
+using VideoConference.Domain.Entities;
 using VideoConference.Persistence.Contexts;
 using VideoConference.Persistence.Repositories;
 using VideoConference.Persistence.Services;
@@ -27,6 +28,18 @@ namespace VideoConference.Persistence
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IMeetingService, MeetingService>();
+
+            services.AddIdentityCore<User>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequiredLength = 2;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireDigit = false;
+                opt.SignIn.RequireConfirmedEmail = false;
+            })
+           .AddRoles<Role>()
+           .AddEntityFrameworkStores<AppDbContext>();
         }
     }
 }
