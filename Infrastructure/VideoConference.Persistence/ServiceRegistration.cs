@@ -28,6 +28,7 @@ namespace VideoConference.Persistence
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IMeetingService, MeetingService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddIdentityCore<User>(opt =>
             {
