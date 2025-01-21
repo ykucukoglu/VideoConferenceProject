@@ -44,7 +44,7 @@ namespace VideoConference.Infrastructure.Services.Tokens
             var token = new JwtSecurityToken(
                 issuer: _tokenSettings.Issuer,
                 audience: _tokenSettings.Audience,
-                expires: DateTime.Now.AddMinutes(_tokenSettings.TokenValidityInMunitues),
+                expires: DateTime.UtcNow.AddMinutes(_tokenSettings.TokenValidityInMunitues),
                 claims: claims,
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
                 );

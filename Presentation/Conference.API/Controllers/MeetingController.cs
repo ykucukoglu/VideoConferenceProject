@@ -1,28 +1,25 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using VideoConference.Application.DTOs.Meetings;
 using VideoConference.Application.Features.Commands.Meeting.DeleteMeeting;
 using VideoConference.Application.Features.Queries.Meeting.GetAllMeeting;
-using VideoConference.Application.Repositories.UnitOfWorks;
-using VideoConference.Domain.Entities;
 
-namespace VideoConference.API.Controllers
+namespace Conference.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class MeetingController : ControllerBase
     {
         readonly IMediator _mediator;
 
-        public ValuesController(IMediator mediator)
+        public MeetingController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAsync()
         {
             var response = await _mediator.Send(new GetAllMeetingQueryRequest());

@@ -1,6 +1,0 @@
-@VideoConference.API_HostAddress = http://localhost:5136
-
-GET {{VideoConference.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
