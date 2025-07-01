@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\VideoConference.Application\VideoConference.Application.csproj" />
+    <ProjectReference Include="..\..\server\Core\VideoConference.Application\VideoConference.Application.csproj" />
   </ItemGroup>
 
 </Project>
