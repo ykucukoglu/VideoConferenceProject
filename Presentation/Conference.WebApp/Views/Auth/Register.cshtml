@@ -1,0 +1,12 @@
+﻿@model Conference.WebApp.Models.Auth.RegisterRequest
+
+<h2>Register</h2>
+<form asp-action="Register" method="post">
+    <label>Email:</label>
+    <input type="email" asp-for="Email" />
+    <br />
+    <label>Password:</label>
+    <input type="password" asp-for="Password" />
+    <br />
+    <button type="submit">Register</button>
+</form>

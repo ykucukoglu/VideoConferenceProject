@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VideoConference.Application.DTOs.Meetings
+﻿namespace Conference.WebApp.Models.Meeting
 {
-    public class MeetingDTO
+    public class Meeting
     {
         public string Id { get; set; }
         public string Title { get; set; }

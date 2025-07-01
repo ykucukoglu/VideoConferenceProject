@@ -1,0 +1,29 @@
+﻿@model Conference.WebApp.Models.Meeting.MeetingsResponse
+
+
+<h2>Meetings</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var meeting in Model.Meetings)
+        {
+            <tr>
+                <td>@meeting.Title</td>
+                <td>@meeting.Description</td>
+                <td>@meeting.StartTime</td>
+                <td>@meeting.EndTime</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@meeting.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
