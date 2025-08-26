@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VideoConference.Persistence.Contexts;
@@ -11,9 +12,11 @@ using VideoConference.Persistence.Contexts;
 namespace VideoConference.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250826212530_create_entites")]
+    partial class create_entites
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,16 +178,9 @@ namespace VideoConference.Persistence.Migrations
                     b.Property<Guid>("SenderId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ChannelId");
-
-                    b.HasIndex("SenderId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("ChannelMessages");
                 });
@@ -231,8 +227,6 @@ namespace VideoConference.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.HasIndex("ChatId", "UserId")
                         .IsUnique();
 
@@ -262,16 +256,9 @@ namespace VideoConference.Persistence.Migrations
                     b.Property<Guid>("SenderId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ChatId");
-
-                    b.HasIndex("SenderId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("ChatMessages");
                 });
@@ -302,16 +289,9 @@ namespace VideoConference.Persistence.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ChannelId");
-
-                    b.HasIndex("OrganizerId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Meetings");
                 });
@@ -346,8 +326,6 @@ namespace VideoConference.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MeetingId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("MeetingParticipants");
                 });
@@ -426,8 +404,6 @@ namespace VideoConference.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("TeamId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("TeamMembers");
                 });
@@ -560,96 +536,46 @@ namespace VideoConference.Persistence.Migrations
 
             modelBuilder.Entity("VideoConference.Domain.Entities.Channel", b =>
                 {
-                    b.HasOne("VideoConference.Domain.Entities.Team", "Team")
+                    b.HasOne("VideoConference.Domain.Entities.Team", null)
                         .WithMany("Channels")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("VideoConference.Domain.Entities.ChannelMessage", b =>
                 {
-                    b.HasOne("VideoConference.Domain.Entities.Channel", "Channel")
+                    b.HasOne("VideoConference.Domain.Entities.Channel", null)
                         .WithMany("Messages")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("VideoConference.Domain.Entities.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VideoConference.Domain.Entities.User", null)
-                        .WithMany("ChannelMessages")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Channel");
-
-                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("VideoConference.Domain.Entities.ChatMember", b =>
                 {
-                    b.HasOne("VideoConference.Domain.Entities.Chat", "Chat")
+                    b.HasOne("VideoConference.Domain.Entities.Chat", null)
                         .WithMany("Members")
                         .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("VideoConference.Domain.Entities.User", "User")
-                        .WithMany("ChatMemberships")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Chat");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("VideoConference.Domain.Entities.ChatMessage", b =>
                 {
-                    b.HasOne("VideoConference.Domain.Entities.Chat", "Chat")
+                    b.HasOne("VideoConference.Domain.Entities.Chat", null)
                         .WithMany("Messages")
                         .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("VideoConference.Domain.Entities.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VideoConference.Domain.Entities.User", null)
-                        .WithMany("ChatMessages")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Chat");
-
-                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("VideoConference.Domain.Entities.Meeting", b =>
                 {
-                    b.HasOne("VideoConference.Domain.Entities.Channel", "Channel")
+                    b.HasOne("VideoConference.Domain.Entities.Channel", null)
                         .WithMany("Meetings")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("VideoConference.Domain.Entities.User", "Organizer")
-                        .WithMany()
-                        .HasForeignKey("OrganizerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("VideoConference.Domain.Entities.User", null)
-                        .WithMany("OrganizedMeetings")
-                        .HasForeignKey("UserId");
 
                     b.OwnsOne("VideoConference.Domain.ValueObjects.MeetingTime", "Time", b1 =>
                         {
@@ -670,10 +596,6 @@ namespace VideoConference.Persistence.Migrations
                                 .HasForeignKey("MeetingId");
                         });
 
-                    b.Navigation("Channel");
-
-                    b.Navigation("Organizer");
-
                     b.Navigation("Time")
                         .IsRequired();
                 });
@@ -686,15 +608,7 @@ namespace VideoConference.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VideoConference.Domain.Entities.User", "User")
-                        .WithMany("MeetingParticipations")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Meeting");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("VideoConference.Domain.Entities.TeamMember", b =>
@@ -705,15 +619,7 @@ namespace VideoConference.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VideoConference.Domain.Entities.User", "User")
-                        .WithMany("TeamMemberships")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Team");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("VideoConference.Domain.Entities.Channel", b =>
@@ -740,21 +646,6 @@ namespace VideoConference.Persistence.Migrations
                     b.Navigation("Channels");
 
                     b.Navigation("Members");
-                });
-
-            modelBuilder.Entity("VideoConference.Domain.Entities.User", b =>
-                {
-                    b.Navigation("ChannelMessages");
-
-                    b.Navigation("ChatMemberships");
-
-                    b.Navigation("ChatMessages");
-
-                    b.Navigation("MeetingParticipations");
-
-                    b.Navigation("OrganizedMeetings");
-
-                    b.Navigation("TeamMemberships");
                 });
 #pragma warning restore 612, 618
         }

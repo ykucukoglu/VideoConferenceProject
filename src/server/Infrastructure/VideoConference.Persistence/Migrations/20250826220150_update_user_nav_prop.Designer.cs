@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VideoConference.Persistence.Contexts;
@@ -11,9 +12,11 @@ using VideoConference.Persistence.Contexts;
 namespace VideoConference.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250826220150_update_user_nav_prop")]
+    partial class update_user_nav_prop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -302,16 +305,9 @@ namespace VideoConference.Persistence.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ChannelId");
-
-                    b.HasIndex("OrganizerId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Meetings");
                 });
@@ -641,16 +637,6 @@ namespace VideoConference.Persistence.Migrations
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("VideoConference.Domain.Entities.User", "Organizer")
-                        .WithMany()
-                        .HasForeignKey("OrganizerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("VideoConference.Domain.Entities.User", null)
-                        .WithMany("OrganizedMeetings")
-                        .HasForeignKey("UserId");
-
                     b.OwnsOne("VideoConference.Domain.ValueObjects.MeetingTime", "Time", b1 =>
                         {
                             b1.Property<Guid>("MeetingId")
@@ -671,8 +657,6 @@ namespace VideoConference.Persistence.Migrations
                         });
 
                     b.Navigation("Channel");
-
-                    b.Navigation("Organizer");
 
                     b.Navigation("Time")
                         .IsRequired();
@@ -751,8 +735,6 @@ namespace VideoConference.Persistence.Migrations
                     b.Navigation("ChatMessages");
 
                     b.Navigation("MeetingParticipations");
-
-                    b.Navigation("OrganizedMeetings");
 
                     b.Navigation("TeamMemberships");
                 });

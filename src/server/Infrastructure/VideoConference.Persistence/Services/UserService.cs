@@ -9,6 +9,7 @@ using VideoConference.Application.Abstractions.Services;
 using VideoConference.Application.Features.Commands.Auth.Register;
 using VideoConference.Application.Features.Rules.Auth;
 using VideoConference.Domain.Entities;
+using VideoConference.Domain.Enums;
 
 namespace VideoConference.Persistence.Services
 {
@@ -38,18 +39,16 @@ namespace VideoConference.Persistence.Services
 
             if (result.Succeeded)
             {
-                if(!await _roleManager.RoleExistsAsync("User"))
+                await _userManager.AddToRoleAsync(user,"User");
+
+                if (!await _roleManager.RoleExistsAsync(SystemRole.Guest.Name))
                 {
-                    await _roleManager.CreateAsync(new Role()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "User",
-                        NormalizedName = "USER",
-                        ConcurrencyStamp = Guid.NewGuid().ToString(),
-                    });
+                    await _roleManager.CreateAsync(Role.Create(SystemRole.Guest.Name));
                 }
 
-                await _userManager.AddToRoleAsync(user,"User");
+                // Kullanıcıya rol ata
+                await _userManager.AddToRoleAsync(user, SystemRole.Guest.Name);
+
             }
 
             return new();

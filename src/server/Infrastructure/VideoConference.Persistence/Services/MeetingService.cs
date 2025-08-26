@@ -28,7 +28,7 @@ namespace VideoConference.Persistence.Services
             var meeting = await _unitOfWork.GetReadRepository<Meeting>().GetAsync(x => x.Id == meetingId && !x.IsDeleted);
             if(meeting != null)
             {
-                meeting.IsDeleted = true;
+                meeting.Delete();
 
                 await _unitOfWork.GetWriteRepository<Meeting>().UpdateAsync(meeting);
                 await _unitOfWork.SaveAsync();

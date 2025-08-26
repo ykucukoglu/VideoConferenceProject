@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VideoConference.Application.Repositories;
+﻿using VideoConference.Application.Repositories;
 using VideoConference.Application.Repositories.UnitOfWorks;
 using VideoConference.Persistence.Contexts;
 using VideoConference.Persistence.Repositories;

@@ -7,11 +7,11 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using VideoConference.Application.Repositories;
-using VideoConference.Domain.Entities.Common;
+using VideoConference.Domain.Primitives;
 
 namespace VideoConference.Persistence.Repositories
 {
-    public class ReadRepository<T> : IReadRepository<T> where T : class, IBaseEntity, new()
+    public class ReadRepository<T> : IReadRepository<T> where T : class, IBaseEntity
     {
         private readonly DbContext dbContext;
 

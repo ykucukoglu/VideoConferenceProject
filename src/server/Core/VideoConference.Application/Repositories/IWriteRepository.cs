@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VideoConference.Domain.Entities.Common;
+using VideoConference.Domain.Primitives;
 
 namespace VideoConference.Application.Repositories
 {
-    public interface IWriteRepository<T> where T : class, IBaseEntity, new()
+    public interface IWriteRepository<T> where T : class, IBaseEntity
     {
         Task AddAsync(T entity);
         Task AddRangeAsync(IList<T> entities);

@@ -48,8 +48,7 @@ namespace VideoConference.Persistence.Services
 
             _ = int.TryParse(_configuration["JWT:RefreshTokenValidityInDays"], out int refreshTokenValidityInDays);
 
-            user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(refreshTokenValidityInDays);
+            user.SetRefreshToken(refreshToken, DateTime.UtcNow.AddDays(refreshTokenValidityInDays));
 
             await _userManager.UpdateAsync(user);
             await _userManager.UpdateSecurityStampAsync(user);
@@ -79,7 +78,9 @@ namespace VideoConference.Persistence.Services
             JwtSecurityToken newAccessToken = await _tokenService.CreateToken(user, roles);
             string newRefreshToken = _tokenService.GenerateRefreshToken();
 
-            user.RefreshToken = newRefreshToken;
+            _ = int.TryParse(_configuration["JWT:RefreshTokenValidityInDays"], out int refreshTokenValidityInDays);
+            user.SetRefreshToken(newRefreshToken, DateTime.UtcNow.AddDays(refreshTokenValidityInDays));
+
             await _userManager.UpdateAsync(user);
 
             return new RefreshTokenCommandResponse
@@ -94,7 +95,8 @@ namespace VideoConference.Persistence.Services
             User user = await _userManager.FindByEmailAsync(email);
             await _authRules.EmailAddressShouldBeValid(user);
 
-            user.RefreshToken = null;
+            user.RevokeRefreshToken();
+
             await _userManager.UpdateAsync(user);
         }
 
@@ -104,7 +106,7 @@ namespace VideoConference.Persistence.Services
 
             foreach (User user in users)
             {
-                user.RefreshToken = null;
+                user.RevokeRefreshToken();
                 await _userManager.UpdateAsync(user);
             }
         }

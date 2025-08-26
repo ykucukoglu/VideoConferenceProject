@@ -18,8 +18,16 @@ namespace VideoConference.Persistence.Contexts
         {
         }
 
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<Channel> Channels { get; set; }
+        public DbSet<ChannelMessage> ChannelMessages { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<ChatMember> ChatMembers { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
-        public DbSet<MeetingSetting> MeetingSettings { get; set; }
+        public DbSet<MeetingParticipant> MeetingParticipants { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

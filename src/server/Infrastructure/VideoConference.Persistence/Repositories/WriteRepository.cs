@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VideoConference.Application.Repositories;
-using VideoConference.Domain.Entities.Common;
+using VideoConference.Domain.Primitives;
 
 namespace VideoConference.Persistence.Repositories
 {
-    public class WriteRepository<T> : IWriteRepository<T> where T : class, IBaseEntity, new()
+    public class WriteRepository<T> : IWriteRepository<T> where T : class, IBaseEntity
     {
         private readonly DbContext dbContext;
 

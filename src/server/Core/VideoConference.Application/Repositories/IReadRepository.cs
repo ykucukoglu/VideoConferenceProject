@@ -5,11 +5,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using VideoConference.Domain.Entities.Common;
+using VideoConference.Domain.Primitives;
 
 namespace VideoConference.Application.Repositories
 {
-    public interface IReadRepository<T> where T : class, IBaseEntity, new()
+    public interface IReadRepository<T> where T : class, IBaseEntity
     {
         Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VideoConference.Domain.Entities.Common
+namespace VideoConference.Domain.Primitives
 {
-    public interface IBaseEntity
+    public interface IEnumeration
     {
+        int Id { get; }
+        string Name { get; }
     }
 }
