@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VideoConference.Domain.Entities
 {
     public class User : IdentityUser<Guid>
     {
-        public string FullName { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
+
+        public ICollection<ChatMember> ChatMemberships { get;  set; }
+        public ICollection<ChatMessage> ChatMessages { get;  set; }
+        public ICollection<ChannelMessage> ChannelMessages { get;  set; }
+        public ICollection<MeetingParticipant> MeetingParticipations { get;  set; }
+        public ICollection<TeamMember> TeamMemberships { get;  set; }
+        public ICollection<Meeting> OrganizedMeetings { get;  set; }
+
     }
 }

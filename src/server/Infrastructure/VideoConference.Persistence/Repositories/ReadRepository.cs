@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using VideoConference.Application.Repositories;
-using VideoConference.Domain.Entities.Common;
+using VideoConference.Domain.Common;
 
 namespace VideoConference.Persistence.Repositories
 {

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VideoConference.Domain.Entities.Common
+namespace VideoConference.Domain.Common
 {
     public interface IBaseEntity
     {
+        Guid Id { get; }
     }
 }

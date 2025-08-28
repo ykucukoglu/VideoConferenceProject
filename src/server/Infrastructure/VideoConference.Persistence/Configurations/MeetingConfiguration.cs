@@ -14,11 +14,17 @@ namespace VideoConference.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Meeting> builder)
         {
             builder.HasKey(m => m.Id);
+
             builder.Property(m => m.Title).IsRequired().HasMaxLength(200);
-            builder.Property(m => m.Description).HasMaxLength(1000);
-            builder.HasOne(m => m.Settings)
-                   .WithOne(s => s.Meeting)
-                   .HasForeignKey<Meeting>(m => m.SettingId);
+
+            builder.Property(m => m.StartTime).IsRequired();
+            builder.Property(m => m.EndTime).IsRequired();
+
+
+            builder.HasOne(m => m.Organizer)
+                   .WithMany()
+                   .HasForeignKey(m => m.OrganizerId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
