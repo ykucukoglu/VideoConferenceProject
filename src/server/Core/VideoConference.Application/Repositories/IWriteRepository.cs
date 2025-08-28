@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VideoConference.Domain.Entities.Common;
+using VideoConference.Domain.Common;
 
 namespace VideoConference.Application.Repositories
 {

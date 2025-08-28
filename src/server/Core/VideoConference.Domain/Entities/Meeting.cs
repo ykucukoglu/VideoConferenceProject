@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VideoConference.Domain.Entities.Common;
+﻿using VideoConference.Domain.Common;
 
 namespace VideoConference.Domain.Entities
 {
@@ -13,9 +8,11 @@ namespace VideoConference.Domain.Entities
         public string Description { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public string CreatedBy { get; set; } // FK to IdentityUser
-        public DateTime CreatedAt { get; set; }
+        public Guid OrganizerId { get; set; }
+        public User Organizer { get; set; }
         public Guid SettingId { get; set; }
-        public MeetingSetting Settings { get; set; }
+        public Guid? ChannelId { get; set; }
+        public Channel? Channel { get; set; }
+        public ICollection<MeetingParticipant> Participants { get; set; }
     }
 }

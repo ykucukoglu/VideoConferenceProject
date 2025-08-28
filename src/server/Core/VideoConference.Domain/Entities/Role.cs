@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VideoConference.Domain.Common;
+using VideoConference.Domain.Enums;
 
 namespace VideoConference.Domain.Entities
 {
-    public class Role : IdentityRole<Guid>
+    public class Role : IdentityRole<Guid>, IBaseEntity
     {
+        public RoleScope Scope { get; set; }
     }
 }
