@@ -12,8 +12,8 @@ using VideoConference.Persistence.Contexts;
 namespace VideoConference.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250828215038_initial_create")]
-    partial class initial_create
+    [Migration("20250831124008_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -817,17 +817,21 @@ namespace VideoConference.Persistence.Migrations
 
             modelBuilder.Entity("VideoConference.Domain.Entities.UserRole", b =>
                 {
-                    b.HasOne("VideoConference.Domain.Entities.Role", null)
-                        .WithMany()
+                    b.HasOne("VideoConference.Domain.Entities.Role", "Role")
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VideoConference.Domain.Entities.User", null)
-                        .WithMany()
+                    b.HasOne("VideoConference.Domain.Entities.User", "User")
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("VideoConference.Domain.Entities.UserToken", b =>
@@ -858,6 +862,11 @@ namespace VideoConference.Persistence.Migrations
                     b.Navigation("Participants");
                 });
 
+            modelBuilder.Entity("VideoConference.Domain.Entities.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
             modelBuilder.Entity("VideoConference.Domain.Entities.Team", b =>
                 {
                     b.Navigation("Channels");
@@ -878,6 +887,8 @@ namespace VideoConference.Persistence.Migrations
                     b.Navigation("OrganizedMeetings");
 
                     b.Navigation("TeamMemberships");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

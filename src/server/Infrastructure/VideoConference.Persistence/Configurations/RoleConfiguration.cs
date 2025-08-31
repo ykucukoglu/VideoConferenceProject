@@ -30,7 +30,9 @@ namespace VideoConference.Persistence.Configurations
             // Note that these relationships are configured with no navigation properties
 
             // Each Role can have many entries in the UserRole join table
-            builder.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.RoleId).IsRequired();
+            //builder.HasMany<UserRole>().WithOne(ur => ur.Role).HasForeignKey(ur => ur.RoleId).IsRequired();
+
+            builder.HasMany(ur => ur.UserRoles).WithOne(ur => ur.Role).HasForeignKey(ur => ur.RoleId).IsRequired();
 
             // Each Role can have many associated RoleClaims
             builder.HasMany<RoleClaim>().WithOne().HasForeignKey(rc => rc.RoleId).IsRequired();

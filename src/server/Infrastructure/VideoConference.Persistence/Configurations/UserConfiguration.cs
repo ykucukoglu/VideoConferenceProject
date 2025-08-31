@@ -42,7 +42,9 @@ namespace VideoConference.Persistence.Configurations
             builder.HasMany<UserToken>().WithOne().HasForeignKey(ut => ut.UserId).IsRequired();
 
             // Each User can have many entries in the UserRole join table
-            builder.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+            // builder.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+
+            builder.HasMany(ur => ur.UserRoles).WithOne(ur => ur.User).HasForeignKey(ur => ur.UserId).IsRequired();
 
             builder.HasMany(u => u.ChatMemberships)
                    .WithOne(cm => cm.User)

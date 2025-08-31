@@ -8,8 +8,8 @@ namespace VideoConference.Domain.Entities
         public Guid TeamId { get; set; }
         public Team Team { get; set; }
 
-        public ICollection<ChannelMessage> Messages { get; set; }
-        public ICollection<Meeting> Meetings { get; set; }
+        public ICollection<ChannelMessage>? Messages { get; set; }
+        public ICollection<Meeting>? Meetings { get; set; }
 
     }
 }

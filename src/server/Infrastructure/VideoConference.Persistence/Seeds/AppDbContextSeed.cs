@@ -25,7 +25,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.GlobalAdmin,
                                NormalizedName = RoleConstants.GlobalAdmin.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.System,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString(),                              
                            },
                            new Role
                            {
@@ -33,7 +32,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.OrganizationOwner,
                                NormalizedName = RoleConstants.OrganizationOwner.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.Oganization,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            },
                            new Role
                            {
@@ -41,7 +39,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.TeamOwner,
                                NormalizedName = RoleConstants.TeamOwner.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.Team,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            },
                            new Role
                            {
@@ -49,7 +46,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.TeamMember,
                                NormalizedName = RoleConstants.TeamMember.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.Team,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            },
                            new Role
                            {
@@ -57,7 +53,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.ChannelOwner,
                                NormalizedName = RoleConstants.ChannelOwner.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.Channel,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            },
                            new Role
                            {
@@ -65,7 +60,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.ChannelMember,
                                NormalizedName = RoleConstants.ChannelMember.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.Channel,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            },
                            new Role
                            {
@@ -73,7 +67,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.ChatOwner,
                                NormalizedName = RoleConstants.ChatOwner.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.Chat,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            },
                            new Role
                            {
@@ -81,7 +74,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.ChatMember,
                                NormalizedName = RoleConstants.ChatMember.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.Chat,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            },
                            new Role
                            {
@@ -89,7 +81,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.MeetingOrganizer,
                                NormalizedName = RoleConstants.MeetingOrganizer.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.Meeting,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            },
                            new Role
                            {
@@ -97,7 +88,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.MeetingCoHost,
                                NormalizedName = RoleConstants.MeetingCoHost.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.Meeting,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            },
                            new Role
                            {
@@ -105,7 +95,6 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.MeetingParticipant,
                                NormalizedName = RoleConstants.MeetingParticipant.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.Meeting,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            },
                            new Role
                            {
@@ -113,26 +102,24 @@ namespace VideoConference.Persistence.Seeds
                                Name = RoleConstants.Guest,
                                NormalizedName = RoleConstants.Guest.ToUpper(CultureInfo.InvariantCulture),
                                Scope = RoleScope.System,
-                               //ConcurrencyStamp = Guid.NewGuid().ToString()
                            }
             );
 
-            //var superadmin = new User
-            //{
-            //    Id = Guid.Parse("621A6B12-5AE7-410C-8762-5A75C548078C"),
-            //    UserName = "yasemenkucukoglu@gmail.com",
-            //    NormalizedUserName = "YASEMENKUCUKOGLU@GMAIL.COM",
-            //    Email = "yasemenkucukoglu@gmail.com",
-            //    NormalizedEmail = "YASEMENKUCUKOGLU@GMAIL.COM",
-            //    PhoneNumber = "+905420000000",
-            //    PhoneNumberConfirmed = true,
-            //    EmailConfirmed = true,
-            //    //SecurityStamp = Guid.NewGuid().ToString()
-            //};
-            //superadmin.PasswordHash = CreatePasswordHash(superadmin, "Admin123.");
-
-
-            //modelBuilder.Entity<User>().HasData(superadmin);
+            //modelBuilder.Entity<User>().HasData(
+            //    new User
+            //    {
+            //        Id = Guid.Parse("621A6B12-5AE7-410C-8762-5A75C548078C"),
+            //        UserName = "yasemenkucukoglu@gmail.com",
+            //        NormalizedUserName = "YASEMENKUCUKOGLU@GMAIL.COM",
+            //        Email = "yasemenkucukoglu@gmail.com",
+            //        NormalizedEmail = "YASEMENKUCUKOGLU@GMAIL.COM",
+            //        PhoneNumber = "+905420000000",
+            //        PhoneNumberConfirmed = true,
+            //        EmailConfirmed = true,
+            //        TwoFactorEnabled = false,
+            //        SecurityStamp = "96269cb0-1087-4e42-9cc2-24ba32839db4",
+            //        PasswordHash = "AQAAAAIAAYagAAAAEJKqT2W5OA0Bdr2wbQBCDh04Q5ofOPWd6PKTm/fK4uAiJ+l/Rf0H7+Bx8FviiCVy0w=="
+            //    });
 
 
             //modelBuilder.Entity<UserRole>().HasData(new UserRole

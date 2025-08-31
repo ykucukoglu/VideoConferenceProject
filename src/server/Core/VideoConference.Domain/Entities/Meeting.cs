@@ -9,7 +9,7 @@ namespace VideoConference.Domain.Entities
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public Guid OrganizerId { get; set; }
-        public User Organizer { get; set; }
+        public User? Organizer { get; set; }
         public Guid SettingId { get; set; }
         public Guid? ChannelId { get; set; }
         public Channel? Channel { get; set; }

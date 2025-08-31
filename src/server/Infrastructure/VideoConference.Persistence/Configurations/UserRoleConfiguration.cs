@@ -14,6 +14,9 @@ namespace VideoConference.Persistence.Configurations
             // Maps to the AspNetUserRoles table
             builder.ToTable("UserRoles");
 
+            builder.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(u => u.UserId).IsRequired();
+            builder.HasOne(ur => ur.Role).WithMany(u => u.UserRoles).HasForeignKey(u => u.RoleId).IsRequired();
+
         }
     }
 }
