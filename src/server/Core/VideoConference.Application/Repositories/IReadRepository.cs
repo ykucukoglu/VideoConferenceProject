@@ -11,11 +11,11 @@ namespace VideoConference.Application.Repositories
 {
     public interface IReadRepository<T> where T : class, IBaseEntity, new()
     {
-        Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null,
+        IQueryable<T> GetAll(Expression<Func<T, bool>>? predicate = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
             bool enableTracking = false);
-        Task<IList<T>> GetAllByPagingAsync(Expression<Func<T, bool>>? predicate = null,
+        IQueryable<T> GetAllByPaging(Expression<Func<T, bool>>? predicate = null,
           Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
           Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
           bool enableTracking = false, int currentPage = 1, int pageSize = 3);

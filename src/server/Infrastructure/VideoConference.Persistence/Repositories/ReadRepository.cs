@@ -22,28 +22,28 @@ namespace VideoConference.Persistence.Repositories
 
         private DbSet<T> Table { get => dbContext.Set<T>(); }
 
-        public async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false)
+        public IQueryable<T> GetAll(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false)
         {
             IQueryable<T> queryable = Table;
             if (!enableTracking) queryable = queryable.AsNoTracking();
             if (include is not null) queryable = include(queryable);
             if (predicate is not null) queryable = queryable.Where(predicate);
             if (orderBy is not null)
-                return await orderBy(queryable).ToListAsync();
+                return orderBy(queryable);
 
-            return await queryable.ToListAsync();
+            return queryable;
         }
 
-        public async Task<IList<T>> GetAllByPagingAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false, int currentPage = 1, int pageSize = 3)
+        public IQueryable<T> GetAllByPaging(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false, int currentPage = 1, int pageSize = 3)
         {
             IQueryable<T> queryable = Table;
             if (!enableTracking) queryable = queryable.AsNoTracking();
             if (include is not null) queryable = include(queryable);
             if (predicate is not null) queryable = queryable.Where(predicate);
             if (orderBy is not null)
-                return await orderBy(queryable).Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
+                return orderBy(queryable).Skip((currentPage - 1) * pageSize).Take(pageSize);
 
-            return await queryable.Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
+            return queryable.Skip((currentPage - 1) * pageSize).Take(pageSize);
         }
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool enableTracking = false)
