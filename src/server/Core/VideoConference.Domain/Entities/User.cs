@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using VideoConference.Domain.Common;
 
 namespace VideoConference.Domain.Entities
 {
-    public class User : IdentityUser<Guid>
+    public class User : IdentityUser<Guid>, IBaseEntity
     {
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
