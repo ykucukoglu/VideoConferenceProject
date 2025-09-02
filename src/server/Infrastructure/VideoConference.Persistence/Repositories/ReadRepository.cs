@@ -70,5 +70,15 @@ namespace VideoConference.Persistence.Repositories
             if (!enableTracking) Table.AsNoTracking();
             return Table.Where(predicate);
         }
+
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>>? predicate = null, bool enableTracking = false)
+        {
+            IQueryable<T> queryable = Table;
+            if (!enableTracking) queryable = queryable.AsNoTracking();
+            if (predicate is not null)
+                queryable = queryable.Where(predicate);
+
+            return await queryable.AnyAsync();
+        }
     }
 }

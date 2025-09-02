@@ -76,6 +76,10 @@ namespace VideoConference.Persistence.Configurations
                    .HasForeignKey(m => m.OrganizerId)
                    .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasMany(u => u.CommunityMemberships)
+                   .WithOne(cm => cm.User)
+                   .HasForeignKey(cm => cm.UserId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
 
 

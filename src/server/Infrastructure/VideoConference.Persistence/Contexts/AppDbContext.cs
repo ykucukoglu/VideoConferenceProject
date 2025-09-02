@@ -20,6 +20,8 @@ namespace VideoConference.Persistence.Contexts
 
         public DbSet<Team> Teams { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<Community> Communities { get; set; }
+        public DbSet<CommunityMember> CommunityMembers { get; set; }
         public DbSet<Channel> Channels { get; set; }
         public DbSet<ChannelMessage> ChannelMessages { get; set; }
         public DbSet<Chat> Chats { get; set; }

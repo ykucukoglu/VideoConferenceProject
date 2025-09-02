@@ -13,8 +13,9 @@ namespace VideoConference.Domain.Entities
         public ICollection<ChannelMessage>? ChannelMessages { get;  set; }
         public ICollection<MeetingParticipant>? MeetingParticipations { get;  set; }
         public ICollection<TeamMember>? TeamMemberships { get;  set; }
+        public ICollection<CommunityMember>? CommunityMemberships { get;  set; }
         public ICollection<Meeting>? OrganizedMeetings { get;  set; }
         public ICollection<UserRole>? UserRoles { get;  set; }
-
+        public ICollection<Community>? OwnedCommunities { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using VideoConference.Application.Bases;
+using VideoConference.Application.Features.Exceptions.Team;
 using VideoConference.Application.Repositories.UnitOfWorks;
 using VideoConference.Domain.Entities;
 using DomainTeam = VideoConference.Domain.Entities.Team;
@@ -20,7 +21,7 @@ namespace VideoConference.Application.Features.Rules.Team
             var existingTeam = await _unitOfWork.GetReadRepository<DomainTeam> ()
                 .GetAsync(x => x.OrganizationId == orgId && x.Name == name && !x.IsDeleted);
             if (existingTeam != null)
-                throw new Exception("Takım adı aynı organizasyonda zaten mevcut.");
+                throw new TeamNameMustNotBeSameInOrganizationException();
         }
 
         //public Task TeamMustExist(DomainTeam team)

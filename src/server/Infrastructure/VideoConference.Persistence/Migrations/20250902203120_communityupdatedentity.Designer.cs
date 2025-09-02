@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VideoConference.Persistence.Contexts;
@@ -11,9 +12,11 @@ using VideoConference.Persistence.Contexts;
 namespace VideoConference.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250902203120_communityupdatedentity")]
+    partial class communityupdatedentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -509,20 +512,6 @@ namespace VideoConference.Persistence.Migrations
                             Name = "Guest",
                             NormalizedName = "GUEST",
                             Scope = (byte)3
-                        },
-                        new
-                        {
-                            Id = new Guid("abce1401-ffba-419e-b517-18af8cff15d1"),
-                            Name = "CommunityOwner",
-                            NormalizedName = "COMMUNITYOWNER",
-                            Scope = (byte)6
-                        },
-                        new
-                        {
-                            Id = new Guid("a46a7b39-95a4-4e43-9727-06b5568c6d83"),
-                            Name = "CommunityMember",
-                            NormalizedName = "COMMUNITYMEMBER",
-                            Scope = (byte)6
                         });
                 });
 

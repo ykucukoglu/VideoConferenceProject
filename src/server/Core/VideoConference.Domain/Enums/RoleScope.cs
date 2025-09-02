@@ -13,7 +13,8 @@ namespace VideoConference.Domain.Enums
         Meeting = 2,
         System = 3,
         Team = 4,
-        Oganization = 5
+        Oganization = 5,
+        Community = 6
     }
 
 }

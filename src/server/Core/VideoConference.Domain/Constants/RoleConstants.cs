@@ -12,6 +12,8 @@ namespace VideoConference.Domain.Constants
         public const string OrganizationOwner = "OrganizationOwner";
         public const string TeamOwner = "TeamOwner";
         public const string TeamMember = "TeamMember";
+        public const string CommunityOwner = "CommunityOwner";
+        public const string CommunityMember = "CommunityMember";
         public const string ChannelOwner = "ChannelOwner";
         public const string ChannelMember = "ChannelMember";
         public const string ChatOwner = "ChatOwner";

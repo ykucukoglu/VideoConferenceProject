@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VideoConference.Persistence.Contexts;
@@ -11,9 +12,11 @@ using VideoConference.Persistence.Contexts;
 namespace VideoConference.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250902195019_community")]
+    partial class community
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,17 +221,12 @@ namespace VideoConference.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Communities");
+                    b.ToTable("Community");
                 });
 
             modelBuilder.Entity("VideoConference.Domain.Entities.CommunityMember", b =>
@@ -266,7 +264,7 @@ namespace VideoConference.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CommunityMembers");
+                    b.ToTable("CommunityMember");
                 });
 
             modelBuilder.Entity("VideoConference.Domain.Entities.Meeting", b =>
@@ -509,20 +507,6 @@ namespace VideoConference.Persistence.Migrations
                             Name = "Guest",
                             NormalizedName = "GUEST",
                             Scope = (byte)3
-                        },
-                        new
-                        {
-                            Id = new Guid("abce1401-ffba-419e-b517-18af8cff15d1"),
-                            Name = "CommunityOwner",
-                            NormalizedName = "COMMUNITYOWNER",
-                            Scope = (byte)6
-                        },
-                        new
-                        {
-                            Id = new Guid("a46a7b39-95a4-4e43-9727-06b5568c6d83"),
-                            Name = "CommunityMember",
-                            NormalizedName = "COMMUNITYMEMBER",
-                            Scope = (byte)6
                         });
                 });
 
@@ -850,17 +834,6 @@ namespace VideoConference.Persistence.Migrations
                     b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("VideoConference.Domain.Entities.Community", b =>
-                {
-                    b.HasOne("VideoConference.Domain.Entities.User", "Owner")
-                        .WithMany("OwnedCommunities")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
-                });
-
             modelBuilder.Entity("VideoConference.Domain.Entities.CommunityMember", b =>
                 {
                     b.HasOne("VideoConference.Domain.Entities.Community", "Community")
@@ -1093,8 +1066,6 @@ namespace VideoConference.Persistence.Migrations
                     b.Navigation("MeetingParticipations");
 
                     b.Navigation("OrganizedMeetings");
-
-                    b.Navigation("OwnedCommunities");
 
                     b.Navigation("TeamMemberships");
 

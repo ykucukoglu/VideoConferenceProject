@@ -25,4 +25,25 @@ namespace VideoConference.Persistence.Configurations
                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
+
+    public class CommunityMemberConfiguration : IEntityTypeConfiguration<CommunityMember>
+    {
+        public void Configure(EntityTypeBuilder<CommunityMember> builder)
+        {
+
+            builder.HasOne(mp => mp.Role)
+                   .WithMany()
+                   .HasForeignKey(mp => mp.RoleId)
+                   .IsRequired();
+
+            builder.HasOne(tm => tm.Community)
+                   .WithMany(t => t.Members)
+                   .HasForeignKey(tm => tm.CommunityId);
+
+            builder.HasOne(tm => tm.User)
+                   .WithMany(u => u.CommunityMemberships)
+                   .HasForeignKey(tm => tm.UserId)
+                   .OnDelete(DeleteBehavior.Cascade);
+        }
+    }
 }
