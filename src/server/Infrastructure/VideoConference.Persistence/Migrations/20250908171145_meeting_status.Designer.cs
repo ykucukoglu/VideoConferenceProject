@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VideoConference.Persistence.Contexts;
@@ -11,9 +12,11 @@ using VideoConference.Persistence.Contexts;
 namespace VideoConference.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250908171145_meeting_status")]
+    partial class meeting_status
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,9 +89,6 @@ namespace VideoConference.Persistence.Migrations
                     b.Property<Guid>("SenderId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("SentAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -116,9 +116,6 @@ namespace VideoConference.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid?>("MeetingId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -128,8 +125,6 @@ namespace VideoConference.Persistence.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MeetingId");
 
                     b.ToTable("Chats");
                 });
@@ -193,9 +188,6 @@ namespace VideoConference.Persistence.Migrations
 
                     b.Property<Guid>("SenderId")
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime>("SentAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -286,6 +278,9 @@ namespace VideoConference.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("ChannelId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -305,6 +300,9 @@ namespace VideoConference.Persistence.Migrations
                     b.Property<Guid>("OrganizerId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("SettingId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp with time zone");
 
@@ -317,6 +315,8 @@ namespace VideoConference.Persistence.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChannelId");
 
                     b.HasIndex("OrganizerId");
 
@@ -813,16 +813,6 @@ namespace VideoConference.Persistence.Migrations
                     b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("VideoConference.Domain.Entities.Chat", b =>
-                {
-                    b.HasOne("VideoConference.Domain.Entities.Meeting", "Meeting")
-                        .WithMany("Chats")
-                        .HasForeignKey("MeetingId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Meeting");
-                });
-
             modelBuilder.Entity("VideoConference.Domain.Entities.ChatMember", b =>
                 {
                     b.HasOne("VideoConference.Domain.Entities.Chat", "Chat")
@@ -901,11 +891,18 @@ namespace VideoConference.Persistence.Migrations
 
             modelBuilder.Entity("VideoConference.Domain.Entities.Meeting", b =>
                 {
+                    b.HasOne("VideoConference.Domain.Entities.Channel", "Channel")
+                        .WithMany("Meetings")
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("VideoConference.Domain.Entities.User", "Organizer")
                         .WithMany("OrganizedMeetings")
                         .HasForeignKey("OrganizerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Channel");
 
                     b.Navigation("Organizer");
                 });
@@ -1043,6 +1040,8 @@ namespace VideoConference.Persistence.Migrations
 
             modelBuilder.Entity("VideoConference.Domain.Entities.Channel", b =>
                 {
+                    b.Navigation("Meetings");
+
                     b.Navigation("Messages");
                 });
 
@@ -1062,8 +1061,6 @@ namespace VideoConference.Persistence.Migrations
 
             modelBuilder.Entity("VideoConference.Domain.Entities.Meeting", b =>
                 {
-                    b.Navigation("Chats");
-
                     b.Navigation("Participants");
                 });
 

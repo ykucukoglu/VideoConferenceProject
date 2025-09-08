@@ -14,6 +14,7 @@ namespace VideoConference.Application.Mappings.Meetings
         public MeetingProfile()
         {
             CreateMap<MeetingDTO, Meeting>().ReverseMap();
+            CreateMap<AddMeetingDTO, Meeting>().ReverseMap();
         }
     }
 }

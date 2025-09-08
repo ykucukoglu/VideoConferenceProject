@@ -25,6 +25,11 @@ namespace VideoConference.Persistence.Configurations
                    .WithMany()
                    .HasForeignKey(m => m.OrganizerId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(m => m.Chats)
+                   .WithOne(c => c.Meeting)
+                   .HasForeignKey(c => c.MeetingId)
+                   .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

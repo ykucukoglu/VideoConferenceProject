@@ -14,7 +14,6 @@ namespace VideoConference.Domain.Entities
         public Community? Community { get; set; }
 
         public ICollection<ChannelMessage>? Messages { get; set; }
-        public ICollection<Meeting>? Meetings { get; set; }
 
     }
 }

@@ -10,9 +10,7 @@ namespace VideoConference.Domain.Entities
         public DateTime EndTime { get; set; }
         public Guid OrganizerId { get; set; }
         public User? Organizer { get; set; }
-        public Guid SettingId { get; set; }
-        public Guid? ChannelId { get; set; }
-        public Channel? Channel { get; set; }
         public ICollection<MeetingParticipant> Participants { get; set; }
+        public ICollection<Chat>? Chats { get; set; }
     }
 }

@@ -11,5 +11,7 @@ namespace VideoConference.Application.Abstractions.Services
     {
         Task<List<MeetingDTO>> GetAllMeetingsAsync();
         public Task DeleteMeetingAsync(Guid meetingId);
+        Task<MeetingDTO> GetByIdAsync(Guid meetingId);
+        Task<Guid> AddAsync(AddMeetingDTO meetingDTO);
     }
 }

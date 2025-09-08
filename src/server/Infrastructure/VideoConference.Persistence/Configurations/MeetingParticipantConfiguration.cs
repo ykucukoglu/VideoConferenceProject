@@ -16,9 +16,7 @@ namespace VideoConference.Persistence.Configurations
                    .HasForeignKey(mp => mp.RoleId)
                    .IsRequired();
 
-
-            builder.Property(p => p.IsAccepted)
-                   .HasDefaultValue(false);
+            builder.Property(x => x.Status).HasConversion<byte>().IsRequired();
 
             // Meeting ile ilişki
             builder.HasOne(mp => mp.Meeting)

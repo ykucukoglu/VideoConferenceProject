@@ -11,12 +11,12 @@ namespace VideoConference.Application.Features.Rules.Auth
 {
     public class AuthRules : BaseRules
     {
-        public Task UserShouldNotBeExist(User? user)
+        public Task UserShouldNotBeExist(VideoConference.Domain.Entities.User? user)
         {
             if (user is not null) throw new UserAlreadyExistException();
             return Task.CompletedTask;
         }
-        public Task EmailOrPasswordShouldNotBeInvalid(User? user, bool checkPassword)
+        public Task EmailOrPasswordShouldNotBeInvalid(VideoConference.Domain.Entities.User? user, bool checkPassword)
         {
             if (user is null || !checkPassword) throw new EmailOrPasswordShouldNotBeInvalidException();
             return Task.CompletedTask;
@@ -27,7 +27,7 @@ namespace VideoConference.Application.Features.Rules.Auth
             return Task.CompletedTask;
         }
 
-        public Task EmailAddressShouldBeValid(User? user)
+        public Task EmailAddressShouldBeValid(VideoConference.Domain.Entities.User? user)
         {
             if (user is null) throw new EmailAddressShouldBeValidException();
             return Task.CompletedTask;

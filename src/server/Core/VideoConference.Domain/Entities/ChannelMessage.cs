@@ -11,5 +11,7 @@ namespace VideoConference.Domain.Entities
         public User? Sender { get; set; }
 
         public string Content { get; set; }
+        public DateTime SentAt { get; set; }
+
     }
 }

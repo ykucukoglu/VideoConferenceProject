@@ -11,6 +11,6 @@ namespace VideoConference.Domain.Entities
         public User? User { get;  set; }
         public Guid RoleId { get; set; }
         public Role? Role { get;  set; }
-        public bool IsAccepted { get;  set; }
+        public ParticipantStatus Status { get; set; } = ParticipantStatus.Pending;
     }
 }

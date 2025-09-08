@@ -27,13 +27,6 @@ namespace VideoConference.Persistence.Configurations
                    .WithMany(t => t.Channels)
                    .HasForeignKey(c => c.CommunityId)
                    .OnDelete(DeleteBehavior.Cascade);
-
-
-            builder.HasMany(c => c.Meetings)
-                   .WithOne(m => m.Channel)
-                   .HasForeignKey(m => m.ChannelId)
-                   .OnDelete(DeleteBehavior.SetNull);
-
         }
     }
 }
