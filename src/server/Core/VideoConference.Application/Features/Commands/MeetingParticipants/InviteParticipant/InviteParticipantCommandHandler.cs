@@ -10,16 +10,16 @@ namespace VideoConference.Application.Features.Commands.MeetingParticipants.Invi
 {
     public class InviteParticipantCommandHandler : IRequestHandler<InviteParticipantCommandRequest, InviteParticipantCommandResponse>
     {
-        private readonly IInviteParticipantService _inviteParticipant;
+        private readonly IMeetingParticipantService _meetingParticipant;
 
-        public InviteParticipantCommandHandler(IInviteParticipantService inviteParticipant)
+        public InviteParticipantCommandHandler(IMeetingParticipantService meetingParticipant)
         {
-            _inviteParticipant = inviteParticipant;
+            _meetingParticipant = meetingParticipant;
         }
 
         public async Task<InviteParticipantCommandResponse> Handle(InviteParticipantCommandRequest request, CancellationToken cancellationToken)
         {
-            var response = await _inviteParticipant.AddAsync(new()
+            var response = await _meetingParticipant.AddAsync(new()
             {
                 MeetingId = request.MeetingId,
                 UserId = request.UserId
