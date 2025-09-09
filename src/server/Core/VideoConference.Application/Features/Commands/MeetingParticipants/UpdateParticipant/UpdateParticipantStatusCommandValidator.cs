@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VideoConference.Application.Features.Commands.MeetingParticipants.JoinParticipant
+namespace VideoConference.Application.Features.Commands.MeetingParticipants.UpdateParticipant
 {
-    public class JoinParticipantCommandValidator :AbstractValidator<JoinParticipantCommandRequest>
+    public class UpdateParticipantStatusCommandValidator : AbstractValidator<UpdateParticipantStatusCommandRequest>
     {
-        public JoinParticipantCommandValidator()
+        public UpdateParticipantStatusCommandValidator()
         {
             RuleFor(x => x.MeetingId).NotEmpty().NotNull();
             RuleFor(x => x.UserId).NotEmpty().NotNull();

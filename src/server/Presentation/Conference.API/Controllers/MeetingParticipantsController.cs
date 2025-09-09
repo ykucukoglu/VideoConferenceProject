@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using VideoConference.Application.Features.Commands.MeetingParticipants.InviteParticipant;
-using VideoConference.Application.Features.Commands.MeetingParticipants.JoinParticipant;
+using VideoConference.Application.Features.Commands.MeetingParticipants.UpdateParticipant;
 using VideoConference.Application.Features.Queries.Meeting.GetAllMeeting;
 
 namespace Conference.API.Controllers
@@ -16,34 +15,10 @@ namespace Conference.API.Controllers
         {
             _mediator = mediator;
         }
-
-        [HttpPost("invite")]
-        public async Task<IActionResult> InviteParticipant([FromBody] InviteParticipantCommandRequest inviteParticipantCommandRequest)
+        [HttpPost("updatestatus")]
+        public async Task<IActionResult> UpdateParticipantStatus([FromBody] UpdateParticipantStatusCommandRequest updateParticipantStatus)
         {
-            InviteParticipantCommandResponse response = await _mediator.Send(inviteParticipantCommandRequest);
-            return Ok(response);
-        }
-
-        [HttpPost("join")]
-        public async Task<IActionResult> JoinMeeting([FromBody] JoinParticipantCommandRequest dto)
-        {
-            JoinParticipantCommandResponse response = await _mediator.Send(dto);
-
-            return Ok(response);
-        }
-
-        [HttpPost("leave")]
-        public async Task<IActionResult> LeaveMeeting([FromBody] LeaveParticipantCommandRequest dto)
-        {
-            LeaveParticipantCommandResponse response = await _mediator.Send(dto);
-
-            return Ok(response);
-        }
-
-        [HttpPost("accept")]
-        public async Task<IActionResult> AcceptParticipant([FromBody] AcceptParticipantCommandRequest dto)
-        {
-            AcceptParticipantCommandResponse response = await _mediator.Send(dto);
+            UpdateParticipantStatusCommandResponse response = await _mediator.Send(updateParticipantStatus);
             return Ok(response);
         }
 
