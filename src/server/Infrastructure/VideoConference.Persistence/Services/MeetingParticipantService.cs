@@ -59,6 +59,44 @@ namespace VideoConference.Persistence.Services
             return _mapper.Map<List<MeetingParticipantDTO>>(participants);
         }
 
+        public async Task<MeetingParticipant> JoinMeetingAsync(Guid meetingId, Guid userId)
+        {
+            var meeting = await _unitOfWork.GetReadRepository<Meeting>().GetAsync(m => m.Id == meetingId && !m.IsDeleted);
+            if (meeting == null)
+                throw new Exception("Meeting not found.");
+            var participant = await _unitOfWork.GetReadRepository<MeetingParticipant>().GetAsync(mp => mp.MeetingId == meetingId && mp.UserId == userId && !mp.IsDeleted);
+            if (participant is null)
+            {
+                participant = new MeetingParticipant
+                {
+                    MeetingId = meetingId,
+                    UserId = userId,
+                    RoleId = (await _roleManager.FindByNameAsync(RoleConstants.MeetingParticipant)).Id,
+                    Status = GetInitialStatus(meeting.AccessType)
+                };
+                await _unitOfWork.GetWriteRepository<MeetingParticipant>().AddAsync(participant);
+            }
+            else
+            {
+                participant.Status = GetInitialStatus(meeting.AccessType);
+                await _unitOfWork.GetWriteRepository<MeetingParticipant>().UpdateAsync(participant);
+            }
+               
+            await _unitOfWork.SaveAsync();
+            return participant;
+        }
+
+        private ParticipantStatus GetInitialStatus(MeetingAccessType accessType)
+        {
+            return accessType switch
+            {
+                MeetingAccessType.Public => ParticipantStatus.Joined,
+                MeetingAccessType.Private => ParticipantStatus.Pending,
+                MeetingAccessType.Lobby => ParticipantStatus.InLobby,
+                _ => ParticipantStatus.Pending
+            };
+        }
+
         public async Task UpdateParticipantStatusAsync(Guid meetingId, Guid userId, ParticipantStatus status)
         {
             var participant = await _unitOfWork.GetReadRepository<MeetingParticipant>().GetAsync

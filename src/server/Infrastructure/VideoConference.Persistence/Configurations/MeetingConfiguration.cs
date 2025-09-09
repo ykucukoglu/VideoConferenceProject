@@ -30,6 +30,9 @@ namespace VideoConference.Persistence.Configurations
                    .WithOne(c => c.Meeting)
                    .HasForeignKey(c => c.MeetingId)
                    .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Property(x => x.AccessType).HasConversion<byte>().IsRequired();
+
         }
     }
 }

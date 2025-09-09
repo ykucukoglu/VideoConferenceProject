@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VideoConference.Application.Features.Commands.Meeting.AddMeeting;
 using VideoConference.Application.Features.Commands.Meeting.DeleteMeeting;
+using VideoConference.Application.Features.Commands.Meeting.JoinMeeting;
 using VideoConference.Application.Features.Queries.Meeting.GetAllMeeting;
 using VideoConference.Application.Features.Queries.Meeting.GetByIdMeeting;
 
@@ -49,6 +50,13 @@ namespace Conference.API.Controllers
                 new { id = response.MeetingId },
                 response
             );
+        }
+
+        [HttpPost("{meetingId}/join")]
+        public async Task<IActionResult> JoinMeeting([FromBody] JoinMeetingCommandRequest request)
+        {
+            JoinMeetingCommandResponse response = await _mediator.Send(request);
+            return Ok(response);
         }
     }
 }
